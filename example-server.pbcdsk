@@ -1,0 +1,14 @@
+
+table word_count
+{
+  key Word;
+  value Count;
+  compare {
+    rv = strcmp (a->word, b->word);
+  }
+  merge {
+    rv.count = a->count + b->count;
+  }
+};
+
+  

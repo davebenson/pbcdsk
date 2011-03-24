@@ -1,0 +1,13 @@
+
+namespace Example;
+
+message Word
+{
+  required string word = 1;
+};
+
+message Count
+{
+  required uint64 count = 1;
+};
+
