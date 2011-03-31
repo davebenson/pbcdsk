@@ -31,6 +31,17 @@ should be run when a node is added, and it should be run again
 once all the replications finish, to allow the deletions to occur.
 
 \section{A Node's View of the State of the System}
+A node is aware of all of its files.
+
+A node should be aware of all other nodes.
+
+But:
+\begin{itemize}
+\item what if a node disconnects?
+\item what if a node becomes unresponsive?
+\item what if a node connects multiple times?
+\item policy on byzantine failures
+\end{itemize}
 
 \section{Node and Network Failures}
 In practice, failures come from a few things:
