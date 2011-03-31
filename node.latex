@@ -1,0 +1,53 @@
+\documentclass{article}
+\title{Protobuf-C Map/Reduce/File-System Framework}
+\author{David Benson}
+\frenchspacing
+\usepackage{amsfonts,amsmath,amssymb,epsfig,eucal}
+\pagestyle{headings}
+\begin{document}
+\maketitle
+
+
+\section{Overview}
+all nodes connected to eachother.
+
+nodes have a id (sha-1 checksum),
+
+mapping from documents to id is deterministic:  if $N$ replicas are
+requested then the closest $N$ nodes id-wise
+(using a distance metric that wraps, to avoid documents being distributed
+more heavily ids in the middle) will be returned.
+
+however, since nodes come and go, it is not guaranteed that a given
+doc will be on the closest node.  so to fetch a document, nodes must
+be tried in order in increasing distance.
+
+node-failure can leave the system without enough copies of a file.
+For now, we are going to write a separate program that should
+be run if a node goes down permanently (it will merely check
+the state of the system and make ``replicate'' and ``delete''
+requests until all files are properly represented).  the same program
+should be run when a node is added, and it should be run again
+once all the replications finish, to allow the deletions to occur.
+
+\section{A Node's View of the State of the System}
+
+\section{Node and Network Failures}
+In practice, failures come from a few things:
+\begin{itemize}
+\item nodes with hardware problems
+\item bad net connections (router or cable or network-driver failure)
+\end{itemize}
+
+Sometimes, the data loss is permanent:  a hard-drive fails etc.
+In this case, the data from the lost host should be copied.
+How shall we gauge that the data loss is permanent?
+
+Sometimes, data loss is merely possible:  in that case, the node should
+be instructed to run checksums on all the files.  after that, if it
+deletes corrupt files, we should run the same program as handles
+permanent data loss.
+
+Sometimes, data loss is probably temporary: how shall we handle that?
+
+\end{document}
